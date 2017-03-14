@@ -1,0 +1,1186 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="Yy6c8FDvd5" />
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="javamail," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DingDang's Notes" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="文章记录本人在开发邮件收发功能时所查询到的资料整理，遇到问题后的解决方法。开篇简单介绍了JavaMail及邮件收发相关协议（POP3、IMAP、SMTP）的概念，并提供现在主流的几个邮箱收发服务器及其端口号，最后PO出发送邮件和接收邮件代码，代码中有详细的注释说明，且在接收邮件章节最后对开发过程中遇到的问题处理方式做出详细讲解。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用JavaMail收发邮件">
+<meta property="og:url" content="https://www.dingdangss.com/2017/03/02/使用JavaMail收发邮件/index.html">
+<meta property="og:site_name" content="DingDang's Notes">
+<meta property="og:description" content="文章记录本人在开发邮件收发功能时所查询到的资料整理，遇到问题后的解决方法。开篇简单介绍了JavaMail及邮件收发相关协议（POP3、IMAP、SMTP）的概念，并提供现在主流的几个邮箱收发服务器及其端口号，最后PO出发送邮件和接收邮件代码，代码中有详细的注释说明，且在接收邮件章节最后对开发过程中遇到的问题处理方式做出详细讲解。">
+<meta property="og:image" content="http://om6nvy4k3.bkt.clouddn.com/qqmail.png">
+<meta property="og:updated_time" content="2017-03-07T10:43:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用JavaMail收发邮件">
+<meta name="twitter:description" content="文章记录本人在开发邮件收发功能时所查询到的资料整理，遇到问题后的解决方法。开篇简单介绍了JavaMail及邮件收发相关协议（POP3、IMAP、SMTP）的概念，并提供现在主流的几个邮箱收发服务器及其端口号，最后PO出发送邮件和接收邮件代码，代码中有详细的注释说明，且在接收邮件章节最后对开发过程中遇到的问题处理方式做出详细讲解。">
+<meta name="twitter:image" content="http://om6nvy4k3.bkt.clouddn.com/qqmail.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.dingdangss.com/2017/03/02/使用JavaMail收发邮件/"/>
+
+
+
+
+
+  <title> 使用JavaMail收发邮件 | DingDang's Notes </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1261412113'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1261412113%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+  </div>
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DingDang's Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://www.dingdangss.com/2017/03/02/使用JavaMail收发邮件/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ding Dang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DingDang's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                使用JavaMail收发邮件
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-02T17:47:16+08:00">
+                2017-03-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JAVA/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVA</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/03/02/使用JavaMail收发邮件/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/02/使用JavaMail收发邮件/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/03/02/使用JavaMail收发邮件/" class="leancloud_visitors" data-flag-title="使用JavaMail收发邮件">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  文章记录本人在开发邮件收发功能时所查询到的资料整理，遇到问题后的解决方法。开篇简单介绍了JavaMail及邮件收发相关协议（POP3、IMAP、SMTP）的概念，并提供现在主流的几个邮箱收发服务器及其端口号，最后PO出发送邮件和接收邮件代码，代码中有详细的注释说明，且在接收邮件章节最后对开发过程中遇到的问题处理方式做出详细讲解。
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="JavaMail"><a href="#JavaMail" class="headerlink" title="JavaMail"></a>JavaMail</h1><blockquote>
+<p>JavaMail，顾名思义，提供给开发者处理电子邮件相关的编程接口。它是Sun发布的用来处理email的API。它可以方便地执行一些常用的邮件传输。我们可以基于JavaMail开发出类似于Microsoft Outlook的应用程序。</p>
+</blockquote>
+<p>JavaMail官网地址：<a href="http://www.oracle.com/technetwork/java/javamail/index.html" target="_blank" rel="external">http://www.oracle.com/technetwork/java/javamail/index.html</a> 大家可在其中选择最新版下载（目前最新版本1.4.7）</p>
+<h1 id="POP3、IMAP、SMTP"><a href="#POP3、IMAP、SMTP" class="headerlink" title="POP3、IMAP、SMTP"></a>POP3、IMAP、SMTP</h1><h2 id="概念普及"><a href="#概念普及" class="headerlink" title="概念普及"></a>概念普及</h2><p>要做邮件收发功能，就必须先了解什么是POP3、IMAP、SMTP</p>
+<p><strong>SMTP</strong></p>
+<blockquote>
+<p>SMTP 的全称是“Simple Mail Transfer Protocol”，即简单邮件传输协议。它是一组用于从源地址到目的地址传输邮件的规范，通过它来控制邮件的中转方式。SMTP 协议属于 TCP/IP 协议簇，它帮助每台计算机在发送或中转信件时找到下一个目的地。SMTP 服务器就是遵循 SMTP 协议的<strong>发送邮件服务器</strong>。 </p>
+</blockquote>
+<p><strong>POP3</strong></p>
+<blockquote>
+<p>POP3是Post Office Protocol 3的简称，即邮局协议的第3个版本,它规定怎样将个人计算机连接到Internet的邮件服务器和下载电子邮件的电子协议。它是因特网电子邮件的第一个离线协议标准,POP3允许用户从服务器上把邮件存储到本地主机（即自己的计算机）上,同时删除保存在邮件服务器上的邮件，而POP3服务器则是遵循POP3协议的<strong>接收邮件服务器</strong>，用来接收电子邮件的。</p>
+</blockquote>
+<p><strong>IMAP</strong></p>
+<blockquote>
+<p>IMAP，即Internet Message Access Protocol（互联网邮件访问协议），您可以通过这种协议从邮件服务器上获取邮件的信息、下载邮件等。IMAP与POP类似，都是一种邮件获取协议。</p>
+</blockquote>
+<p><strong>IMAP和POP3的区别</strong></p>
+<blockquote>
+<p>POP3允许电子邮件客户端下载服务器上的邮件，但是您在电子邮件客户端的操作（如：移动邮件、标记已读等），这是不会反馈到服务器上的，比如：您通过电子邮件客户端收取了QQ邮箱中的3封邮件并移动到了其他文件夹，这些移动动作是不会反馈到服务器上的，也就是说，QQ邮箱服务器上的这些邮件是没有同时被移动的 。但是IMAP就不同了，电子邮件客户端的操作都会反馈到服务器上，您对邮件进行的操作（如：移动邮件、标记已读等），服务器上的邮件也会做相应的动作。也就是说，IMAP是“双向”的。同时，IMAP可以只下载邮件的主题，只有当您真正需要的时候，才会下载邮件的所有内容。<br><strong>总结：IMAP 可以从整体上提供更稳定的使用体验。POP3 更易丢失邮件或多次下载相同的邮件，而 IMAP 则可以通过在邮件客户端和网络邮箱之间进行双向同步的功能来避免这种情况。</strong></p>
+</blockquote>
+<h2 id="开启IMAP-SMTP服务"><a href="#开启IMAP-SMTP服务" class="headerlink" title="开启IMAP/SMTP服务"></a>开启IMAP/SMTP服务</h2><p>根据上一节内容，本文选择使用IMAP服务器作为邮件接收服务器。<br>要实现邮件收发功能，必须先开启SMTP和IMAP。<br>以QQ邮箱为例，登录QQ邮箱，进入 <em>设置 -&gt; 账户</em>，开启IMAP/SMTP服务（还可设置邮件收取选项），如图：</p>
+<p><img src="http://om6nvy4k3.bkt.clouddn.com/qqmail.png" alt="Alt text"></p>
+<blockquote>
+<p><strong>注意：</strong>QQ邮箱在开启后会生成授权码，此授权码在发送及接受邮件时当做密码使用。目前只有QQ邮箱需要授权码，其他邮箱均直接使用其登录密码即可。</p>
+</blockquote>
+<h2 id="各类型邮箱POP3-IMAP-SMTP服务器整理"><a href="#各类型邮箱POP3-IMAP-SMTP服务器整理" class="headerlink" title="各类型邮箱POP3/IMAP/SMTP服务器整理"></a>各类型邮箱POP3/IMAP/SMTP服务器整理</h2><p>本人目前只研究过QQ邮箱、QQ企业邮箱、163邮箱、Gmail邮箱、Gmail企业邮箱。现整理如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">邮箱</th>
+<th style="text-align:left">POP3服务器</th>
+<th style="text-align:left">IMAP服务器</th>
+<th style="text-align:left">SMTP服务器</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">QQ邮箱</td>
+<td style="text-align:left">pop.qq.com</td>
+<td style="text-align:left">imap.qq.com</td>
+<td style="text-align:left">smtp.qq.com</td>
+</tr>
+<tr>
+<td style="text-align:left">QQ企业邮箱</td>
+<td style="text-align:left">pop.exmail.qq.com</td>
+<td style="text-align:left">imap.exmail.qq.com</td>
+<td style="text-align:left">smtp.exmail.qq.com</td>
+</tr>
+<tr>
+<td style="text-align:left">163邮箱</td>
+<td style="text-align:left">pop3.163.com</td>
+<td style="text-align:left">imap.163.com</td>
+<td style="text-align:left">smtp.163.com</td>
+</tr>
+<tr>
+<td style="text-align:left">Gmail邮箱</td>
+<td style="text-align:left">pop.gmail.com</td>
+<td style="text-align:left">imap.gmail.com</td>
+<td style="text-align:left">smtp.gmail.com</td>
+</tr>
+<tr>
+<td style="text-align:left">Gmail企业邮箱</td>
+<td style="text-align:left">pop.gmail.com</td>
+<td style="text-align:left">imap.gmail.com</td>
+<td style="text-align:left">smtp.gmail.com</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>注意</strong>：Gmail企业邮箱和Gmail邮箱收发服务器相同，但都需要翻墙。另外，要能正常收发Gmail邮件，还需修改Gmail配置，启用不够安全的应用的访问权限，否则会被Gmail拦截掉，设置启用权限的地址：<a href="https://www.google.com/settings/security/lesssecureapps" target="_blank" rel="external">https://www.google.com/settings/security/lesssecureapps</a> （需要先登录）</p>
+</blockquote>
+<h2 id="端口号"><a href="#端口号" class="headerlink" title="端口号"></a>端口号</h2><table>
+<thead>
+<tr>
+<th style="text-align:left">端口</th>
+<th style="text-align:left">POP3服务器</th>
+<th style="text-align:left">IMAP服务器</th>
+<th style="text-align:left">SMTP服务器</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">默认端口</td>
+<td style="text-align:left">110</td>
+<td style="text-align:left">143</td>
+<td style="text-align:left">25</td>
+</tr>
+<tr>
+<td style="text-align:left">SSL安全链接的端口</td>
+<td style="text-align:left">995</td>
+<td style="text-align:left">993</td>
+<td style="text-align:left">465</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>注意：</strong>随着各个Mail服务器对于安全的重视，纷纷采用基于SSL的Mail登陆方式进行发送和接收电子邮件。所以当使用JavaMail发送电子邮件时，需要根据SSL设定，增加安全验证的功能。</p>
+</blockquote>
+<h1 id="发送邮件"><a href="#发送邮件" class="headerlink" title="发送邮件"></a>发送邮件</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String SSL_FACTORY = <span class="string">"javax.net.ssl.SSLSocketFactory"</span>;</div><div class="line">   </div><div class="line"><span class="comment">/**</span></div><div class="line">    * 发邮件</div><div class="line">    */</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Boolean <span class="title">sendMail</span><span class="params">(SendMailVO sendMailVO)</span> </span>&#123;</div><div class="line">       <span class="comment">// 配置发送邮件的环境属性</span></div><div class="line">       <span class="keyword">final</span> Properties props = <span class="keyword">new</span> Properties();</div><div class="line">       props.setProperty(<span class="string">"mail.smtp.auth"</span>, <span class="string">"true"</span>);<span class="comment">// 发送服务器需要身份验证</span></div><div class="line">       props.setProperty(<span class="string">"mail.smtp.socketFactory.class"</span>, SSL_FACTORY);</div><div class="line">       props.setProperty(<span class="string">"mail.smtp.socketFactory.fallback"</span>, <span class="string">"false"</span>);</div><div class="line">       props.setProperty(<span class="string">"mail.smtp.socketFactory.port"</span>, <span class="string">"465"</span>);<span class="comment">// 发送邮件服务器端口号</span></div><div class="line">       props.setProperty(<span class="string">"mail.host"</span>, sendMailVO.getHost());<span class="comment">// 发送邮件服务器主机名，如qq邮箱为：smtp.qq.com</span></div><div class="line">       props.put(<span class="string">"mail.user"</span>, sendMailVO.getUsername());<span class="comment">// 发件人的账号</span></div><div class="line">       props.put(<span class="string">"mail.password"</span>, sendMailVO.getPassword());<span class="comment">// 访问SMTP服务时需要提供的密码，qq邮箱时需要使用授权码</span></div><div class="line">       <span class="keyword">try</span> &#123;</div><div class="line">           List&lt;String&gt; receiver = sendMailVO.getReceiver();<span class="comment">// 收件人邮箱，此处是一个List集合，收件人可以有多个</span></div><div class="line">           List&lt;String&gt; copyReceiver = sendMailVO.getCopyReceiver();<span class="comment">// 抄送人邮箱，可以有多个</span></div><div class="line">           logger.info(<span class="string">"============== start sendMail ================"</span>);</div><div class="line">           logger.info(<span class="string">"Sender: "</span> + props.getProperty(<span class="string">"mail.user"</span>));</div><div class="line">           logger.info(<span class="string">"To: "</span> + JSON.toJSONString(receiver));</div><div class="line">           logger.info(<span class="string">"cc: "</span> + JSON.toJSONString(copyReceiver));</div><div class="line">           logger.info(<span class="string">"Subject: "</span> + sendMailVO.getTopic());</div><div class="line">           logger.info(<span class="string">"Body: "</span> + sendMailVO.getContent());</div><div class="line">           <span class="comment">// 构建授权信息，用于进行SMTP进行身份验证</span></div><div class="line">           Authenticator authenticator = <span class="keyword">new</span> Authenticator() &#123;</div><div class="line">               <span class="meta">@Override</span></div><div class="line">               <span class="function"><span class="keyword">protected</span> PasswordAuthentication <span class="title">getPasswordAuthentication</span><span class="params">()</span> </span>&#123;</div><div class="line">                   <span class="comment">// 用户名、密码</span></div><div class="line">                   String userName = props.getProperty(<span class="string">"mail.user"</span>);</div><div class="line">                   String password = props.getProperty(<span class="string">"mail.password"</span>);</div><div class="line">                   <span class="keyword">return</span> <span class="keyword">new</span> PasswordAuthentication(userName, password);</div><div class="line">               &#125;</div><div class="line">           &#125;;</div><div class="line">           Session mailSession = Session.getInstance(props, authenticator);<span class="comment">// 使用环境属性和授权信息，创建邮件会话</span></div><div class="line">           MimeMessage message = <span class="keyword">new</span> MimeMessage(mailSession);<span class="comment">// 创建邮件消息</span></div><div class="line">           <span class="comment">// 设置发件人</span></div><div class="line">           InternetAddress form = <span class="keyword">new</span> InternetAddress(props.getProperty(<span class="string">"mail.user"</span>));</div><div class="line">           message.setFrom(form);</div><div class="line">           <span class="comment">// 设置收件人</span></div><div class="line">           InternetAddress[] to = <span class="keyword">new</span> InternetAddress[receiver.size()];</div><div class="line">           <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; receiver.size(); i++) &#123;</div><div class="line">               to[i] = <span class="keyword">new</span> InternetAddress(receiver.get(i));</div><div class="line">           &#125;</div><div class="line">           message.setRecipients(Message.RecipientType.TO, to);</div><div class="line">           <span class="comment">// 设置抄送人</span></div><div class="line">           <span class="keyword">if</span> (copyReceiver != <span class="keyword">null</span> &amp;&amp; copyReceiver.size() &gt; <span class="number">0</span>) &#123;</div><div class="line">               InternetAddress[] cc = <span class="keyword">new</span> InternetAddress[copyReceiver.size()];</div><div class="line">               <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; copyReceiver.size(); i++) &#123;</div><div class="line">                   cc[i] = <span class="keyword">new</span> InternetAddress(copyReceiver.get(i));</div><div class="line">               &#125;</div><div class="line">               message.setRecipients(Message.RecipientType.CC, cc);</div><div class="line">           &#125;</div><div class="line">           <span class="comment">// 设置邮件标题</span></div><div class="line">           message.setSubject(sendMailVO.getTopic());</div><div class="line">           <span class="comment">// 设置邮件的内容体</span></div><div class="line">           message.setContent(sendMailVO.getContent(), <span class="string">"text/html;charset=UTF-8"</span>);</div><div class="line">           <span class="comment">// 发送邮件</span></div><div class="line">           Transport.send(message);</div><div class="line">           logger.info(<span class="string">"email send success!"</span>);</div><div class="line">           logger.info(<span class="string">"============== end sendMail ================"</span>);</div><div class="line">           <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">       &#125; <span class="keyword">catch</span> (MessagingException e) &#123;</div><div class="line">           logger.error(<span class="string">"email send failed!"</span>, e);</div><div class="line">           <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">       &#125;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<h1 id="接收邮件"><a href="#接收邮件" class="headerlink" title="接收邮件"></a>接收邮件</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 接收邮件</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;MailReceiveVO&gt; <span class="title">receiveMail</span><span class="params">(ReceiveMailVO receiveMailVO)</span> <span class="keyword">throws</span> MessagingException </span>&#123;</div><div class="line">    logger.info(<span class="string">"============== start receiveMail ================"</span>);</div><div class="line">    logger.info(<span class="string">"current user email : "</span> + receiveMailVO.getUsername()); <span class="comment">// 当前用户的邮箱账号</span></div><div class="line">    <span class="keyword">long</span> time = System.currentTimeMillis();</div><div class="line">    <span class="comment">// 准备连接服务器的会话信息</span></div><div class="line">    Properties props = <span class="keyword">new</span> Properties();</div><div class="line">    props.setProperty(<span class="string">"mail.imap.socketFactory.class"</span>, SSL_FACTORY);</div><div class="line">    props.setProperty(<span class="string">"mail.imap.socketFactory.fallback"</span>, <span class="string">"false"</span>);</div><div class="line">    props.setProperty(<span class="string">"mail.imap.socketFactory.port"</span>, <span class="string">"993"</span>);<span class="comment">// 接收邮件服务器端口号</span></div><div class="line">    props.setProperty(<span class="string">"mail.imap.host"</span>, receiveMailVO.getHost());<span class="comment">// 接收邮件服务器</span></div><div class="line">    <span class="comment">// 创建Session实例对象</span></div><div class="line">    Session session = Session.getInstance(props);</div><div class="line">    <span class="comment">// 创建IMAP协议的Store对象</span></div><div class="line">    Store store = session.getStore(<span class="string">"imaps"</span>);</div><div class="line">    store.connect(receiveMailVO.getHost(), receiveMailVO.getUsername(), receiveMailVO.getPassword());</div><div class="line">    <span class="comment">// 获得收件箱</span></div><div class="line">    IMAPFolder folder = (IMAPFolder) store.getFolder(<span class="string">"INBOX"</span>);</div><div class="line">    <span class="comment">// 以读写模式打开收件箱</span></div><div class="line">    folder.open(Folder.READ_WRITE);</div><div class="line">    <span class="comment">// 获得收件箱中未读邮件列表</span></div><div class="line">    Message[] messages = folder.search(<span class="keyword">new</span> FlagTerm(<span class="keyword">new</span> Flags(Flags.Flag.SEEN), <span class="keyword">false</span>));<span class="comment">// 已读的历史邮件不处理,只处理未读的</span></div><div class="line">    logger.info(<span class="string">"unread mail size : "</span> + messages.length);</div><div class="line"></div><div class="line">    List&lt;MailReceiveVO&gt; mails = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">    <span class="comment">// 解析邮件</span></div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; messages.length; i++) &#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            MimeMessage smsg = (MimeMessage) messages[i];</div><div class="line">            <span class="comment">// 将邮件服务器的邮件Message拷贝到本地中，提高解析邮件内容的效率</span></div><div class="line">            MimeMessage cmsg = copyToClientMessage(smsg, session);</div><div class="line">            MailReceiveVO mailReceiveVO = <span class="keyword">new</span> MailReceiveVO();</div><div class="line">            mailReceiveVO.setTopic(cmsg.getSubject());<span class="comment">// 主题</span></div><div class="line">            mailReceiveVO.setSendTime(cmsg.getSentDate());<span class="comment">// 发送时间</span></div><div class="line">            <span class="comment">// 发件人信息</span></div><div class="line">            Address[] froms = cmsg.getFrom();</div><div class="line">            <span class="keyword">if</span> (froms != <span class="keyword">null</span>) &#123;</div><div class="line">                InternetAddress addr = (InternetAddress) froms[<span class="number">0</span>];</div><div class="line">                MailContactDO mailContactDO = <span class="keyword">new</span> MailContactDO();</div><div class="line">                mailContactDO.setEmail(addr.getAddress());<span class="comment">// 发件人邮件地址</span></div><div class="line">                mailContactDO.setName(addr.getPersonal()); <span class="comment">// 发件人邮件昵称</span></div><div class="line">                mailReceiveVO.setSender(mailContactDO);</div><div class="line">            &#125;</div><div class="line">            <span class="comment">// 收件人信息</span></div><div class="line">            Address[] receiverAddrs = cmsg.getRecipients(Message.RecipientType.TO);</div><div class="line">            List&lt;MailContactDO&gt; receiver = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">            <span class="keyword">if</span> (receiverAddrs != <span class="keyword">null</span> &amp;&amp; receiverAddrs.length &gt; <span class="number">0</span>) &#123;</div><div class="line">                <span class="keyword">for</span> (Address tmpAddr : receiverAddrs) &#123;</div><div class="line">                    InternetAddress addr = (InternetAddress) tmpAddr;</div><div class="line">                    MailContactDO mailContactDO = <span class="keyword">new</span> MailContactDO();</div><div class="line">                    mailContactDO.setEmail(addr.getAddress());</div><div class="line">                    mailContactDO.setName(addr.getPersonal());</div><div class="line">                    receiver.add(mailContactDO);</div><div class="line">                &#125;</div><div class="line">            &#125; <span class="keyword">else</span> &#123; <span class="comment">// 如果没有收件人信息，则默认将自己添加到收件人中</span></div><div class="line">                MailContactDO mailContactDO = <span class="keyword">new</span> MailContactDO();</div><div class="line">                mailContactDO.setEmail(receiveMailVO.getUsername());</div><div class="line">                receiver.add(mailContactDO);</div><div class="line">            &#125;</div><div class="line">            mailReceiveVO.setReceiver(receiver);</div><div class="line">            <span class="comment">// 抄送人信息</span></div><div class="line">            Address[] copyReceiverAddrs = cmsg.getRecipients(Message.RecipientType.CC);</div><div class="line">            <span class="keyword">if</span> (copyReceiverAddrs != <span class="keyword">null</span> &amp;&amp; copyReceiverAddrs.length &gt; <span class="number">0</span>) &#123;</div><div class="line">                List&lt;MailContactDO&gt; copyReceiver = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">                <span class="keyword">for</span> (Address tmpAddr : copyReceiverAddrs) &#123;</div><div class="line">                    InternetAddress addr = (InternetAddress) tmpAddr;</div><div class="line">                    MailContactDO mailContactDO = <span class="keyword">new</span> MailContactDO();</div><div class="line">                    mailContactDO.setEmail(addr.getAddress());</div><div class="line">                    mailContactDO.setName(addr.getPersonal());</div><div class="line">                    copyReceiver.add(mailContactDO);</div><div class="line">                &#125;</div><div class="line">                mailReceiveVO.setCopyReceiver(copyReceiver);</div><div class="line">            &#125;</div><div class="line">            <span class="comment">// 解析邮件内容</span></div><div class="line">            String content = getText(cmsg);</div><div class="line">            mailReceiveVO.setContent(content);</div><div class="line">            mailReceiveVO.setState(MailState.UNREAD);</div><div class="line">            smsg.setFlag(Flags.Flag.SEEN, <span class="keyword">true</span>); <span class="comment">// 修改邮件服务器的邮件状态，把邮件标记为已读</span></div><div class="line">            mails.add(mailReceiveVO);</div><div class="line">        &#125; <span class="keyword">catch</span> (FolderClosedException e)&#123; <span class="comment">// 收件箱打开超时后会自动关闭，这次捕获此异常，并重新打开收件箱，重新处理当前邮件</span></div><div class="line">            folder.open(Folder.READ_WRITE);</div><div class="line">            --i;</div><div class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123; <span class="comment">// 获取邮件内容失败</span></div><div class="line">            logger.error(<span class="string">"Failed to get mail content"</span>, e);</div><div class="line">        &#125; <span class="keyword">catch</span> (Exception e)&#123; <span class="comment">// 解析邮件内容失败</span></div><div class="line">            logger.error(<span class="string">"Failed to resolve mail content"</span>, e);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 释放资源</span></div><div class="line">    folder.close(<span class="keyword">true</span>);</div><div class="line">    store.close();</div><div class="line">    logger.info(<span class="string">"接收邮件耗时："</span> + (System.currentTimeMillis() - time));</div><div class="line">    logger.info(<span class="string">"============== end receiveMail ================"</span>);</div><div class="line">    <span class="keyword">return</span> mails;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 解析邮件内容</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> String <span class="title">getText</span><span class="params">(Part p)</span> <span class="keyword">throws</span> MessagingException, IOException </span>&#123;</div><div class="line">    <span class="keyword">if</span> (p.isMimeType(<span class="string">"text/*"</span>)) &#123;</div><div class="line">        <span class="keyword">return</span> (String)p.getContent();</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (p.isMimeType(<span class="string">"multipart/alternative"</span>)) &#123;</div><div class="line">        <span class="comment">// prefer html text over plain text</span></div><div class="line">        Multipart mp = (Multipart)p.getContent();</div><div class="line">        String text = <span class="keyword">null</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; mp.getCount(); i++) &#123;</div><div class="line">            Part bp = mp.getBodyPart(i);</div><div class="line">            <span class="keyword">if</span> (bp.isMimeType(<span class="string">"text/plain"</span>)) &#123;</div><div class="line">                <span class="keyword">if</span> (text == <span class="keyword">null</span>)</div><div class="line">                    text = getText(bp);</div><div class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (bp.isMimeType(<span class="string">"text/html"</span>)) &#123;</div><div class="line">                String s = getText(bp);</div><div class="line">                <span class="keyword">if</span> (s != <span class="keyword">null</span>)</div><div class="line">                    <span class="keyword">return</span> s;</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="keyword">return</span> getText(bp);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> text;</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (p.isMimeType(<span class="string">"multipart/*"</span>)) &#123;</div><div class="line">        Multipart mp = (Multipart)p.getContent();</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; mp.getCount(); i++) &#123;</div><div class="line">            String s = getText(mp.getBodyPart(i));</div><div class="line">            <span class="keyword">if</span> (s != <span class="keyword">null</span>)</div><div class="line">                <span class="keyword">return</span> s;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 将邮件服务器中的邮件Message拷贝到本地中（这样在解析邮件内容时能提高性能）</div><div class="line"> * <span class="doctag">@param</span> serverMessage 邮件服务器上的邮件Message对象</div><div class="line"> * <span class="doctag">@param</span> session session</div><div class="line"> * <span class="doctag">@return</span> 拷贝到本地后的Message对象（如果拷贝失败，则返回服务器的Message）</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> MimeMessage <span class="title">copyToClientMessage</span><span class="params">(Message serverMessage, Session session)</span></span>&#123;</div><div class="line">    MimeMessage smsg = (MimeMessage)serverMessage;</div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">        ByteArrayOutputStream bos = <span class="keyword">new</span> ByteArrayOutputStream();</div><div class="line">        smsg.writeTo(bos);</div><div class="line">        bos.close();</div><div class="line">        SharedByteArrayInputStream bis = <span class="keyword">new</span> SharedByteArrayInputStream(bos.toByteArray());</div><div class="line">        MimeMessage cmsg = <span class="keyword">new</span> MimeMessage(session, bis);</div><div class="line">        bis.close();</div><div class="line">        <span class="keyword">return</span> cmsg;</div><div class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">        <span class="keyword">return</span> smsg;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>代码说明：</strong><br>1、本例是基于IMAP协议来处理邮件接收工作的，代码中只从收件箱中获取未被标记为已读的邮件，将这些邮件解析成<code>MailReceiveVO</code>对象，<code>add</code>到最后需要返回的<code>mails</code>List集合中，并且在<code>add</code>之前，将邮件服务器上的邮件修改标记为已读状态（因为本例用的是IMAP协议，所以此修改会同步到邮件服务器），等到下一次执行该方法时，将不再处理这次已接收过的邮件。<br>2、代码中为避免直接使用邮件服务器的<code>Message</code>对象去解析邮件数据（这样做会因为网络传输等原因影响解析效率及程序性能），所以通过<code>copyToClientMessage</code>方法，将邮件服务器上的<code>Message</code>对象通过流的方式拷贝到本地，所有的解析操作都将基于这个本地副本进行，由此大大提高解析效率。（此处理方法来源于官网FAQ：<a href="http://www.oracle.com/technetwork/java/javamail/faq-135477.html#imapserverbug）" target="_blank" rel="external">http://www.oracle.com/technetwork/java/javamail/faq-135477.html#imapserverbug）</a><br>3、收件箱打开时间过长会有超时问题，超时后会自动关闭，本例代码中捕获<code>FolderClosedException</code>异常，在<code>catch</code>中重新打开收件箱，并重新处理当前邮件，以免出现邮件漏处理的情况。</p>
+<blockquote>
+<p><strong>注意：</strong>本例中的<code>getText</code>方法未对附件等情况做处理，如有此类需求，请自行百度。(^o^)</p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wxpay.jpg" alt="Ding Dang WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/javamail/" rel="tag"># javamail</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/06/Go语言学习笔记（一）/" rel="prev" title="Go语言学习笔记（一）">
+                Go语言学习笔记（一） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/03/02/使用JavaMail收发邮件/"
+           data-title="使用JavaMail收发邮件" data-url="https://www.dingdangss.com/2017/03/02/使用JavaMail收发邮件/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="Ding Dang" />
+          <p class="site-author-name" itemprop="name">Ding Dang</p>
+           
+              <p class="site-description motion-element" itemprop="description">DingDang</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/liulian610" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaMail"><span class="nav-number">1.</span> <span class="nav-text">JavaMail</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#POP3、IMAP、SMTP"><span class="nav-number">2.</span> <span class="nav-text">POP3、IMAP、SMTP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概念普及"><span class="nav-number">2.1.</span> <span class="nav-text">概念普及</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开启IMAP-SMTP服务"><span class="nav-number">2.2.</span> <span class="nav-text">开启IMAP/SMTP服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#各类型邮箱POP3-IMAP-SMTP服务器整理"><span class="nav-number">2.3.</span> <span class="nav-text">各类型邮箱POP3/IMAP/SMTP服务器整理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#端口号"><span class="nav-number">2.4.</span> <span class="nav-text">端口号</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#发送邮件"><span class="nav-number">3.</span> <span class="nav-text">发送邮件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#接收邮件"><span class="nav-number">4.</span> <span class="nav-text">接收邮件</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<span id="cnzz_stat_icon_1261412113"><a href="http://www.cnzz.com/stat/website.php?web_id=1261412113" target="_blank" title="站长统计"><img border="0" hspace="0" vspace="0" src="http://icon.cnzz.com/img/pic.gif"></a></span>
+
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ding Dang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+	
+	<span id="busuanzi_container_site_pv" style="display: inline;">
+		&nbsp; | &nbsp;本站总访问 <span id="busuanzi_value_site_pv"></span> 次
+	</span>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"liulian610"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="local-search-pop-overlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("y4yfJ7eqAoYCKbFXJdIc8vHr-gzGzoHsz", "CrQjaXXgs2LYi4k0BFsGfz23");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+
+  
+
+</body>
+</html>
