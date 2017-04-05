@@ -91,7 +91,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="SpringAOP,自定义注解,SpEL," />
 
 
 
@@ -109,15 +109,16 @@
 
 
 
-<meta name="description" content="DingDang">
-<meta property="og:type" content="website">
-<meta property="og:title" content="DingDang's Notes">
-<meta property="og:url" content="https://www.dingdangss.com/index.html">
+<meta name="description" content="在原有项目基础上，增加一个需要记录用户特殊操作记录的需求。为不影响原有代码，遵守单一职责原则，且可以灵活设置日志内容的前提下，最终选用SpringAOP+自定义注解+SpEL表达式的方式处理此项功能。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用SpringAOP+自定义注解+SpEL实现操作日志记录">
+<meta property="og:url" content="https://www.dingdangss.com/2017/04/05/利用springAOP-自定义注解-SpEL实现操作日志记录/index.html">
 <meta property="og:site_name" content="DingDang's Notes">
-<meta property="og:description" content="DingDang">
+<meta property="og:description" content="在原有项目基础上，增加一个需要记录用户特殊操作记录的需求。为不影响原有代码，遵守单一职责原则，且可以灵活设置日志内容的前提下，最终选用SpringAOP+自定义注解+SpEL表达式的方式处理此项功能。">
+<meta property="og:updated_time" content="2017-04-05T09:15:24.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="DingDang's Notes">
-<meta name="twitter:description" content="DingDang">
+<meta name="twitter:title" content="利用SpringAOP+自定义注解+SpEL实现操作日志记录">
+<meta name="twitter:description" content="在原有项目基础上，增加一个需要记录用户特殊操作记录的需求。为不影响原有代码，遵守单一职责原则，且可以灵活设置日志内容的前提下，最终选用SpringAOP+自定义注解+SpEL表达式的方式处理此项功能。">
 
 
 
@@ -145,13 +146,13 @@
 
 
 
-  <link rel="canonical" href="https://www.dingdangss.com/"/>
+  <link rel="canonical" href="https://www.dingdangss.com/2017/04/05/利用springAOP-自定义注解-SpEL实现操作日志记录/"/>
 
 
 
 
 
-  <title> DingDang's Notes </title>
+  <title> 利用SpringAOP+自定义注解+SpEL实现操作日志记录 | DingDang's Notes </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -182,9 +183,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -309,9 +308,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -341,10 +340,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2017/04/05/利用springAOP-自定义注解-SpEL实现操作日志记录/" itemprop="url">
-                  利用SpringAOP+自定义注解+SpEL实现操作日志记录
-                </a>
+                利用SpringAOP+自定义注解+SpEL实现操作日志记录
               
             
           </h1>
@@ -426,170 +422,9 @@
           
 
           
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          在原有项目基础上，增加一个需要记录用户特殊操作记录的需求。为不影响原有代码，遵守单一职责原则，且可以灵活设置日志内容的前提下，最终选用SpringAOP+自定义注解+SpEL表达式的方式处理此项功能。
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/04/05/利用springAOP-自定义注解-SpEL实现操作日志记录/">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://www.dingdangss.com/2017/03/10/解决Maven的Jetty插件启动慢的问题/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ding Dang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="DingDang's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/03/10/解决Maven的Jetty插件启动慢的问题/" itemprop="url">
-                  解决Maven的Jetty插件启动慢的问题
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-10T16:58:05+08:00">
-                2017-03-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/遇到的各种问题处理/" itemprop="url" rel="index">
-                    <span itemprop="name">遇到的各种问题处理</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/03/10/解决Maven的Jetty插件启动慢的问题/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/10/解决Maven的Jetty插件启动慢的问题/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2017/03/10/解决Maven的Jetty插件启动慢的问题/" class="leancloud_visitors" data-flag-title="解决Maven的Jetty插件启动慢的问题">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
+              <div class="post-description">
+                  在原有项目基础上，增加一个需要记录用户特殊操作记录的需求。为不影响原有代码，遵守单一职责原则，且可以灵活设置日志内容的前提下，最终选用SpringAOP+自定义注解+SpEL表达式的方式处理此项功能。
+              </div>
           
 
         </div>
@@ -603,377 +438,99 @@
       
 
       
-        
-          在实际项目中遇到的Jetty启动慢的问题，网上虽然查到解决方案，但并没有说明缘由。追究这个问题原因是因为今日在研究swagger时，发现启动后打开swagger-ui.html页面总是404，后来才发现，是因为文中提到需要配置的jetty-context.xml中没有加上swagger-ui相关的JAR包。o(╯□╰)o
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/03/10/解决Maven的Jetty插件启动慢的问题/">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>在原有项目基础上，增加一个记录用户操作日志的功能。如用户的新增、修改、删除操作，都需要记录到日志中，方便日后分析使用。<br>要实现这个功能最简单的解决方式就是直接在需要记录日志的地方调用<code>OperateLogService.add()</code>方法，但是这种做法会让代码中嵌入过多与实际业务无关的代码，且各个需要记录日志的地方都需要改动其原有代码，无论是代码的重复利用率还是耦合程度，都不建议如此做。<br>那么为了优雅的实现日志功能，我们最终选择<strong>利用SpringAOP+自定义注解+SpEL表达式</strong>来完成。</p>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="自定义注解"><a href="#自定义注解" class="headerlink" title="自定义注解"></a>自定义注解</h2><p>自定义一个用于标注操作日志的注解：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 自定义注解-操作日志.</div><div class="line"> * Created by lll on 17/4/5.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="meta">@interface</span> OperateLog &#123;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 操作类型</div><div class="line">     */</div><div class="line">    <span class="function">OperateType <span class="title">type</span><span class="params">()</span></span>;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 描述信息,支持SpEL表达式</div><div class="line">     */</div><div class="line">    <span class="function">String <span class="title">desc</span><span class="params">()</span> <span class="keyword">default</span> ""</span>;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>其中<code>OperateType</code>是个枚举型，用于表示操作类型：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 日志操作类型</div><div class="line"> * Created by lll on 17/4/5.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="keyword">enum</span> OperateType &#123;</div><div class="line"></div><div class="line">    ADD(<span class="string">"新增"</span>),</div><div class="line">    UPDATE(<span class="string">"修改"</span>),</div><div class="line">    DELETE(<span class="string">"删除"</span>);</div><div class="line"></div><div class="line">    <span class="keyword">private</span> String desc;</div><div class="line"></div><div class="line">    OperateType(String desc)&#123;</div><div class="line">        <span class="keyword">this</span>.desc = desc;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getDesc</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> desc;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在需要记录操作日志的方法上面加上这个注解，如：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 示例Service</div><div class="line"> * Created by lll on 17/4/5.</div><div class="line"> */</div><div class="line"><span class="meta">@Service</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoServiceImpl</span> <span class="keyword">implements</span> <span class="title">DemoService</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    <span class="keyword">private</span> DemoDAO demoDAO;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="meta">@OperateLog</span>(type = OperateType.ADD, desc = <span class="string">"#demo.name"</span>) <span class="comment">// 这里的desc用的是SpEL表达式</span></div><div class="line">    <span class="function"><span class="keyword">public</span> Long <span class="title">addDemo</span><span class="params">(Demo demo)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> demoDAO.insert(demo);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="SpringAOP-amp-SpEL表达式解析"><a href="#SpringAOP-amp-SpEL表达式解析" class="headerlink" title="SpringAOP &amp; SpEL表达式解析"></a>SpringAOP &amp; SpEL表达式解析</h2><p>Spring支持在配置文件中配置切面层，也可以自定义标有Aspect注解的类来实现AOP。本例中我们采用后者来实现。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> org.aspectj.lang.JoinPoint;</div><div class="line"><span class="keyword">import</span> org.aspectj.lang.annotation.Aspect;</div><div class="line"><span class="keyword">import</span> org.aspectj.lang.annotation.Before;</div><div class="line"><span class="keyword">import</span> org.aspectj.lang.annotation.Pointcut;</div><div class="line"><span class="keyword">import</span> org.aspectj.lang.reflect.MethodSignature;</div><div class="line"><span class="keyword">import</span> org.springframework.core.LocalVariableTableParameterNameDiscoverer;</div><div class="line"><span class="keyword">import</span> org.springframework.expression.EvaluationContext;</div><div class="line"><span class="keyword">import</span> org.springframework.expression.ExpressionParser;</div><div class="line"><span class="keyword">import</span> org.springframework.expression.spel.standard.SpelExpressionParser;</div><div class="line"><span class="keyword">import</span> org.springframework.expression.spel.support.StandardEvaluationContext;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.lang.reflect.Method;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 操作日志AOP切面</div><div class="line"> * Created by lll on 17/4/5.</div><div class="line"> */</div><div class="line"><span class="meta">@Aspect</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OperateLogAspect</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger logger = LoggerFactory.getLogger(OperateLogAspect.class);</div><div class="line">    </div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    <span class="keyword">private</span> OperateLogService operateLogService;</div><div class="line"></div><div class="line">    <span class="meta">@Pointcut</span>(<span class="string">"@annotation(OperateLog)"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logAnnotation</span><span class="params">()</span> </span>&#123;&#125;</div><div class="line"></div><div class="line">    <span class="meta">@Before</span>(<span class="string">"logAnnotation()"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">before</span><span class="params">(JoinPoint jp)</span> </span>&#123;</div><div class="line">        MethodSignature signature = (MethodSignature) jp.getSignature();</div><div class="line">        Method method = signature.getMethod();</div><div class="line">        String methodName  = jp.getSignature().getName();</div><div class="line">        Object[] arguments = jp.getArgs();</div><div class="line">        OperateLog logAnnotation = method.getAnnotation(OperateLog.class);</div><div class="line"></div><div class="line">        String className = jp.getThis().toString();</div><div class="line">        OperateType type = logAnnotation.type();</div><div class="line">        String descSpel = logAnnotation.desc();</div><div class="line">        Object desc = parseSpel(descSpel, method, arguments); <span class="comment">// 解析SpEL表达式</span></div><div class="line">        logger.debug(<span class="string">"====================================="</span>);</div><div class="line">        logger.debug(<span class="string">"====位于: &#123;&#125;"</span>, className);</div><div class="line">        logger.debug(<span class="string">"====调用: &#123;&#125;"</span>, methodName);</div><div class="line">        logger.debug(<span class="string">"====type: &#123;&#125;"</span>, type);</div><div class="line">        logger.debug(<span class="string">"====desc: &#123;&#125;"</span>, desc);</div><div class="line">        logger.debug(<span class="string">"====================================="</span>);</div><div class="line"></div><div class="line">        <span class="comment">// 添加操作日志记录到数据库中</span></div><div class="line">        OperLog operLog = <span class="keyword">new</span> OperLog();</div><div class="line">        operLog.setType(type);</div><div class="line">        operLog.setDesc(desc);</div><div class="line">        operateLogService.add(operLog);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 解析SpEL表达式</div><div class="line">     * <span class="doctag">@param</span> key SpEL表达式</div><div class="line">     * <span class="doctag">@param</span> method 反射得到的方法</div><div class="line">     * <span class="doctag">@param</span> args 反射得到的方法参数</div><div class="line">     * <span class="doctag">@return</span> 解析后SpEL表达式对应的值</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">private</span> Object <span class="title">parseSpel</span><span class="params">(String key, Method method, Object[] args)</span></span>&#123;</div><div class="line">        <span class="comment">// 创建解析器</span></div><div class="line">        ExpressionParser parser = <span class="keyword">new</span> SpelExpressionParser();</div><div class="line">        <span class="comment">// 通过Spring的LocalVariableTableParameterNameDiscoverer获取方法参数名列表</span></div><div class="line">        LocalVariableTableParameterNameDiscoverer parameterNameDiscoverer = <span class="keyword">new</span> LocalVariableTableParameterNameDiscoverer();</div><div class="line">        String[] parameterNames = parameterNameDiscoverer.getParameterNames(method);</div><div class="line">        <span class="comment">// 构造上下文</span></div><div class="line">        EvaluationContext context = <span class="keyword">new</span> StandardEvaluationContext();</div><div class="line">        <span class="keyword">if</span>(args.length == parameterNames.length)&#123;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>,len = args.length; i &lt; len; i++) &#123;</div><div class="line">            	<span class="comment">// 使用setVariable方法来注册自定义变量</span></div><div class="line">            	context.setVariable(parameterNames[i], args[i]); </div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> parser.parseExpression(key).getValue(context);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>说明：</strong></p>
+<ul>
+<li>本例以标记了<code>@OperateLog</code>注解的方法为切入点，在方法执行之前，织入增强<code>before</code>方法，将操作记录添加到数据库中。</li>
+<li>私有方法<code>parseSpel</code>用于解析SpEL表达式。自定义注解的desc字段支持SpEL表达式，可通过类似前面的<code>DemoService.addDemo(Demo demo)</code>方法注解上的desc传入的<code>#demo.name</code>来获取入参中的值。因此，在解析SpEL表达式之前，需要将请求入参作为自定义变量设置到上下文环境中，SpEL解析器会在解析后从上下文环境中获取对应的值。</li>
+<li>获取方法的参数名列表可以通过<strong>反射+javassist库</strong>的方式获取，不过本例中使用的是Spring提供的<code>LocalVariableTableParameterNameDiscoverer</code>，它是Spring基于ASM框架实现的，相比javassist使用起来会简单许多。</li>
+</ul>
+<h2 id="启动Spring对-Aspect注解的支持"><a href="#启动Spring对-Aspect注解的支持" class="headerlink" title="启动Spring对@Aspect注解的支持"></a>启动Spring对@Aspect注解的支持</h2><p>最后一步，不要忘记在Spring的配置文件中启动对@Aspect注解的支持<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- 启动对@AspectJ注解的支持 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">aop:aspectj-autoproxy</span> <span class="attr">proxy-target-class</span>=<span class="string">"true"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"operateLogAspect"</span> <span class="attr">class</span>=<span class="string">"com.lll.aspect.OperateLogAspect"</span>/&gt;</span></div></pre></td></tr></table></figure></p>
+
       
     </div>
 
     <div>
       
+        
+
+      
     </div>
 
     <div>
       
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://www.dingdangss.com/2017/03/06/Go语言学习笔记（一）/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ding Dang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="DingDang's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
         
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/03/06/Go语言学习笔记（一）/" itemprop="url">
-                  Go语言学习笔记（一）
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-06T17:47:40+08:00">
-                2017-03-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Golang/" itemprop="url" rel="index">
-                    <span itemprop="name">Golang</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/03/06/Go语言学习笔记（一）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/06/Go语言学习笔记（一）/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2017/03/06/Go语言学习笔记（一）/" class="leancloud_visitors" data-flag-title="Go语言学习笔记（一）">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wxpay.jpg" alt="Ding Dang WeChat Pay"/>
+          <p>微信打赏</p>
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
       
-      
-
-      
-        
-          最近总听到有人谈论到Go，似乎这个Go语言要火了呀。作为一个专业的程序猿，怎能跟不上时代，于是本宝宝最近闲来无事，也来研究研究，以此文记录学到的东西。本文以初学者的角度编写，内容包括Go语言概述、运行环境安装、使用Go语言开发一个简单的Hello World、编写第一个类库等，以及记录本人在学习过程中搜集的一些资料，如Go的编写规范、命令等。
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/03/06/Go语言学习笔记（一）/">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
       
     </div>
+  </div>
 
-    <div>
-      
-    </div>
 
-    <div>
       
     </div>
 
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://www.dingdangss.com/2017/03/02/使用JavaMail收发邮件/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ding Dang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="DingDang's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/03/02/使用JavaMail收发邮件/" itemprop="url">
-                  使用JavaMail收发邮件
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-02T17:47:16+08:00">
-                2017-03-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JAVA/" itemprop="url" rel="index">
-                    <span itemprop="name">JAVA</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/SpringAOP/" rel="tag"># SpringAOP</a>
           
-
+            <a href="/tags/自定义注解/" rel="tag"># 自定义注解</a>
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/03/02/使用JavaMail收发邮件/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/02/使用JavaMail收发邮件/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
+            <a href="/tags/SpEL/" rel="tag"># SpEL</a>
           
-
-          
-          
-             <span id="/2017/03/02/使用JavaMail收发邮件/" class="leancloud_visitors" data-flag-title="使用JavaMail收发邮件">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
         
-          文章记录本人在开发邮件收发功能时所查询到的资料整理，遇到问题后的解决方法。开篇简单介绍了JavaMail及邮件收发相关协议（POP3、IMAP、SMTP）的概念，并提供现在主流的几个邮箱收发服务器及其端口号，最后PO出发送邮件和接收邮件代码，代码中有详细的注释说明，且在接收邮件章节最后对开发过程中遇到的问题处理方式做出详细讲解。
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/03/02/使用JavaMail收发邮件/">
-              阅读全文 &raquo;
-            </a>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/10/解决Maven的Jetty插件启动慢的问题/" rel="next" title="解决Maven的Jetty插件启动慢的问题">
+                <i class="fa fa-chevron-left"></i> 解决Maven的Jetty插件启动慢的问题
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
 
-    <div>
-      
-    </div>
+          <span class="post-nav-divider"></span>
 
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
 
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
           
           </div>
@@ -981,6 +538,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/04/05/利用springAOP-自定义注解-SpEL实现操作日志记录/"
+           data-title="利用SpringAOP+自定义注解+SpEL实现操作日志记录" data-url="https://www.dingdangss.com/2017/04/05/利用springAOP-自定义注解-SpEL实现操作日志记录/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -1000,8 +565,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
@@ -1077,6 +651,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现"><span class="nav-number">2.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义注解"><span class="nav-number">2.1.</span> <span class="nav-text">自定义注解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SpringAOP-amp-SpEL表达式解析"><span class="nav-number">2.2.</span> <span class="nav-text">SpringAOP & SpEL表达式解析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动Spring对-Aspect注解的支持"><span class="nav-number">2.3.</span> <span class="nav-text">启动Spring对@Aspect注解的支持</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1191,6 +781,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
 
   
 
